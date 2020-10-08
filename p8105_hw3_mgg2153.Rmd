@@ -139,8 +139,7 @@ ny_noaa %>%
     month = month.abb[as.factor(month)],
     year = as.factor(year),
     day = as.factor(day),
-    tmin = tmin/10,
-    tmax = tmax/10
+    tmin = as.numeric(tmin)
   )
 
 
