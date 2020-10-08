@@ -116,6 +116,7 @@ accel_df = read_csv("./data/accel_data.csv") %>%
 
 
 ```{r two_parttwo}
+##getting weird output dbl, also maybe group by day_id?
 accel_df %>%
 group_by(week, day) %>%
 summarize(week, activity_total = sum(acceleration_force)) %>%
