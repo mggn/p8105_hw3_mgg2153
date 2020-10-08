@@ -10,6 +10,7 @@ output: github_document
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(p8105.datasets)
+
 knitr::opts_chunk$set(
 	fig.width = 6, 
   fig.asp = .6,
@@ -89,18 +90,24 @@ instacart %>%
 
 ## Problem 2
 
-Here we are uploading the accelerometers 
+Here we are uploading the accelerometers data and tidying it just a bit, including  
+(1) cleaning names  (2) changing variable types  (3) creating a binary weeday variable
 
 ```{r accel_data}
 accel_df = read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() %>%
   mutate(
     as.factor(day),
-    as.factor(day_id),
     as.factor(week),
     weekday = if_else(day %in% c("Saturday", "Sunday"), "FALSE", "TRUE")
   ) %>%
-  relocate(weekday) 
+  relocate(weekday) %>%
+  pivot_longer(
+    activity_1:activity_1440,
+    names_to = "minute",
+    names_prefix = "activity_",
+    values_to = "value"
+  )
   
 ```
 
