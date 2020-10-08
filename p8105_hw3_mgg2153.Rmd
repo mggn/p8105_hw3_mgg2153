@@ -134,7 +134,14 @@ data("ny_noaa")
 ny_weather_df =
 ny_noaa %>%
   janitor::clean_names() %>%
-  separate(date, into = c("year", "month", "day"))
+  separate(date, into = c("year", "month", "day")) %>%
+  mutate(
+    month = month.abb[as.factor(month)],
+    year = as.factor(year),
+    day = as.factor(day),
+    tmin = tmin/10,
+    tmax = tmax/10
+  )
 
 
 ```
