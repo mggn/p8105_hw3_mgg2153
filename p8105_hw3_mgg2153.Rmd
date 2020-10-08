@@ -89,6 +89,8 @@ instacart %>%
 
 ## Problem 2
 
+Here we are uploading the accelerometers 
+
 ```{r accel_data}
 accel_df = read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() %>%
@@ -98,7 +100,7 @@ accel_df = read_csv("./data/accel_data.csv") %>%
     as.factor(week),
     weekday = if_else(day %in% c("Saturday", "Sunday"), "FALSE", "TRUE")
   ) %>%
-  relocate(weekday)
+  relocate(weekday) 
   
 ```
 
