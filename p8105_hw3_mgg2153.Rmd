@@ -89,6 +89,18 @@ instacart %>%
 
 ## Problem 2
 
+```{r accel_data}
+accel_df = read_csv("./data/accel_data.csv") %>%
+  janitor::clean_names() %>%
+  mutate(
+    as.factor(day),
+    as.factor(day_id),
+    as.factor(week),
+    weekday = if_else(day %in% c("Saturday", "Sunday"), "FALSE", "TRUE")
+  ) %>%
+  relocate(weekday)
+  
+```
 
 
 
