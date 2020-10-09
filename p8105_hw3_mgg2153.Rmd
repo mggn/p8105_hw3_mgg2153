@@ -116,16 +116,17 @@ accel_df = read_csv("./data/accel_data.csv") %>%
 
 
 ```{r two_parttwo}
-##getting weird output dbl, also maybe group by day_id?
 accel_df %>%
-group_by(week, day) %>%
-summarize(week, activity_total = sum(acceleration_force)) %>%
+group_by(day, week) %>%
+summarize(activity_total = sum(acceleration_force)) %>%
 pivot_wider(
 names_from = day,
 values_from = activity_total
 )
 ```
 
+
+## Problem 3
 
 ```{r load_ny_noaa}
 
@@ -134,13 +135,40 @@ data("ny_noaa")
 ny_weather_df =
 ny_noaa %>%
   janitor::clean_names() %>%
+  mutate(
+    tmin = as.numeric(tmin),
+    tmax = as.numeric(tmax),
+  ) %>%
   separate(date, into = c("year", "month", "day")) %>%
   mutate(
     month = month.abb[as.factor(month)],
     year = as.factor(year),
     day = as.factor(day),
-    tmin = as.numeric(tmin)
+    tmin = tmin/10,
+    tmax = tmax/10,
+    prcp = prcp/10
   )
+
+
+```
+
+Let's see what's going on with snowfall:
+```{r}
+ny_weather_df %>%
+  count(month, year, snow)%>%
+  group_by(month, year)
+```
+
+Using this sort of crude method, it appears that the most common frequent value for
+snowfall in mm for nyc is 0. This actually makes sense because how many months of the year
+is it actually cold enough to snow? Not that many (although with climate change who knows).
+
+And now I shall attempt to make a two-panel plot, which I ***believe*** you need
+the library patchwork for:
+
+```{r}
+library(patchwork)
+
 
 
 ```
