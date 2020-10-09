@@ -201,3 +201,16 @@ ny_weather_df %>%
 
 
 ```
+
+
+```{r}
+library(patchwork)
+
+#Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
+#violin plot
+#box plots????
+
+ny_weather_df %>%
+  
+
+```
