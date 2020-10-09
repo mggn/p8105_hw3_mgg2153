@@ -128,6 +128,11 @@ values_from = activity_total
 
 ## Problem 3
 
+By the way, this blog post was helpful in figuring out what tf tenths of measurements
+meant: http://annahydro.blogspot.com/2016/09/making-sense-of-noaa-precipitation-data.html
+
+gotta give proper credit to the people that investigated before me. Thanks google!
+
 ```{r load_ny_noaa}
 
 data("ny_noaa")
@@ -167,8 +172,32 @@ And now I shall attempt to make a two-panel plot, which I ***believe*** you need
 the library patchwork for:
 
 ```{r}
-library(patchwork)
+library(wesanderson)
 
+
+ny_weather_df %>%
+  filter(month %in% c("Jan", "Jul")) %>%
+  group_by(id, year, month)%>%
+  summarize(
+    mean_tmax = mean(tmax, na.rm = TRUE)
+  ) %>%
+  ggplot(aes(x = year, y = mean_tmax, group = id, color = id))+
+  geom_point(alpha = .5)+
+  geom_path()+
+  facet_grid(~month)+
+  labs(
+    title = "Average max temperature in January and July in each station across years",
+    x = "Year",
+    y = "Average maximum temperature",
+    caption = "An attempt: Homework 3 ny_noaa edition"
+  )+ theme_bw()+
+  scale_color_hue (name = "id", h = c(100, 300))+
+  scale_x_discrete(
+    breaks = c(1981, 1985, 1990, 1995, 2000, 2005, 2010 )
+  )+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1), legend.position = "none")
+  
+  
 
 
 ```
