@@ -29,7 +29,7 @@ scale_fill_discrete = scale_fill_viridis_d
 data("instacart")
 ```
 
-This dataset contains `r nrow(instacart)` rows and ... columns. 
+This dataset contains `r nrow(instacart)` rows and `r ncol(instacart)` columns. 
 
 Observations are the level of items in orders by user. There are user / order variables -- user ID, order ID, order day, and order hour. There are also item variables -- name, aisle, department, and some numeric codes. 
 
@@ -129,9 +129,18 @@ values_from = activity_total
 #Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows the 24-hour activity time courses for each day and #use color to indicate day of the week. Describe in words any patterns or conclusions you can make based on this graph.
 
 accel_df %>%
-group_by(day, week) %>%
-  ggplot(aes(x = day, y = acceleration_force, fill = day))+
-  geom_point()
+  filter(week == 1) %>%
+  mutate(
+    day = forcats::fct_relevel(day, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
+    lubridate::as.duration()
+    ) %>%
+  ggplot(aes(x = minute, y = acceleration_force, fill = day))+
+  geom_point(aes(color = day))+
+  facet_grid(. ~ day)+
+  theme(legend.position = "none")
+  
+  
+  
 ```
 
 
