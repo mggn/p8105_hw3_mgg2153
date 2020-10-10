@@ -215,34 +215,40 @@ ny_weather_df %>%
   select(tmax, tmin) %>%
   drop_na(tmax, tmin) %>%
   ggplot(aes(x = tmax, y = tmin))+
-  geom_hex()
+  geom_hex()+
+  theme(legend.position = "none")
 
 snow_dist_1 = 
 ny_weather_df %>%
   filter(year %in% c(1981:1990)) %>%
   drop_na(snow) %>%
+  filter(snow <= 100) %>%
   group_by(id, year, month) %>%
-  ggplot(aes(x = year, y = snow))+
-  geom_boxplot()+
-  theme(axis.text.x = element_text(angle = 90))
+  ggplot(aes(x = year, y = snow, fill = year))+
+  geom_violin()+
+  theme(axis.text.x = element_text(angle = 90), legend.position = "none")
 
 snow_dist_2 =
  ny_weather_df %>%
   filter(year %in% c(1991:2000)) %>%
   drop_na(snow) %>%
+  filter(snow <= 100) %>%
   group_by(id, year, month) %>%
-  ggplot(aes(x = year, y = snow))+
-  geom_boxplot()+
-  theme(axis.text.x = element_text(angle = 90)) 
+  ggplot(aes(x = year, y = snow, fill = year))+
+  geom_violin()+
+  theme(axis.text.x = element_text(angle = 90), legend.position = "none") 
 
 snow_dist_3 =
   ny_weather_df %>%
   filter(year %in% c(2001:2010)) %>%
   drop_na(snow) %>%
+  filter(snow <= 100) %>%
   group_by(id, year, month) %>%
-  ggplot(aes(x = year, y = snow))+
-  geom_boxplot()+
-  theme(axis.text.x = element_text(angle = 90))
+  ggplot(aes(x = year, y = snow, fill = year))+
+  geom_violin()+
+  theme(axis.text.x = element_text(angle = 90), legend.position = "none")
+
+(snow_dist_1 + snow_dist_2)/(snow_dist_3 + tmax_v_tmin)
   
 
 ```
