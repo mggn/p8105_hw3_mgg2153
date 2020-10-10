@@ -116,7 +116,7 @@ accel_df = read_csv("./data/accel_data.csv") %>%
     acceleration_force = as.numeric(acceleration_force)
   )
 ```
-The new, tidier dataset, accel_df has **`r nrow(accel_df)`**observations and **`r ncol(accel_df)`** variables. 
+The new, tidier dataset, accel_df has **`r nrow(accel_df)`** observations and **`r ncol(accel_df)`** variables. 
 Those variables are **`r names(accel_df)`**
 
 To continue with visualizing the data, we will create a variable for the total activity for
@@ -203,6 +203,12 @@ ny_noaa %>%
 
 ```
 
+The resulting dataset has **`r nrow(ny_weather_df)`** and **`r ncol(ny_weather_df)`**
+The variables included are **`r names(ny_weather_df)`**
+What was interesting is that the variables for precipitation, max, and min temperatures
+were measured in "tenths," meaning that 44 was actually 4.4! Hence why the division by 10.
+
+
 Let's see what's going on with snowfall:
 ```{r}
 ny_weather_df %>%
@@ -252,13 +258,15 @@ the average maximum temperature in July. This makes sense because... January is 
 July is in the summer! Also, we can see a sort of zig-zag pattern for both months, showing the 
 fluctuation in max temperature throughout the years.
 
+Below, I am making three separate plots. Three because I decided to separate the snowfall into
+three different plots, to de-clutter the year on the x-axis
+
 ```{r}
 library(patchwork)
 library(ggridges)
 
 #Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
-#violin plot
-#box plots????
+
 
 tmax_v_tmin = 
 ny_weather_df %>%
@@ -298,7 +306,12 @@ snow_dist_3 =
   geom_violin()+
   theme(axis.text.x = element_text(angle = 90), legend.position = "none")
 
-(snow_dist_1 + snow_dist_2)/(snow_dist_3 + tmax_v_tmin)
-  
+
+tmax_v_tmin/ snow_dist_1 /snow_dist_2 / snow_dist_3
+
+ggsave(file = 'snow_dist_1.png')  
+ggsave(file = 'snow_dist_2.png')
+ggsave(file = 'snow_dist_3.png')
+ggsave(file = 'tmax_v_tmin.png')
 
 ```
