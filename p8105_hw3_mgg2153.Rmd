@@ -90,6 +90,9 @@ instacart %>%
 
 ## Problem 2
 
+This dataset contains 5-weeks of accelerometer data for a 63 year old male with a BMI
+of 25. He was admitted to the hospital with congestive heart failure.
+
 Here we are uploading the accelerometers data and tidying it just a bit, including  
 (1) cleaning names  (2) changing variable types  (3) creating a binary weekday variable
 
@@ -113,20 +116,27 @@ accel_df = read_csv("./data/accel_data.csv") %>%
     acceleration_force = as.numeric(acceleration_force)
   )
 ```
-The new, tidier dataset, accel_df has `r nrow(accel_df)`observations and `r ncol(accel_df)` variables. 
-Those variables are `r names(accel_df)`
+The new, tidier dataset, accel_df has **`r nrow(accel_df)`**observations and **`r ncol(accel_df)`** variables. 
+Those variables are **`r names(accel_df)`**
 
-
+To continue with visualizing the data, we will create a variable for the total activity for
+each day. We will show this table by week and day, using the code below:
 
 ```{r two_parttwo}
 accel_df %>%
-group_by(day, week) %>%
-summarize(activity_total = sum(acceleration_force)) %>%
-pivot_wider(
-names_from = day,
-values_from = activity_total
+  mutate( 
+    day = forcats::fct_relevel(day, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+    ) %>%
+  group_by(day, week) %>%
+  summarize(activity_total = sum(acceleration_force)) %>%
+  pivot_wider(
+  names_from = day,
+  values_from = activity_total
 )
 ```
+
+From quickly glancing at the table, there do not appear to be any apparent trends, except that on Saturday for
+weeks 4 and 5, there seems to be significantly less activity than any of the other days on any of the other weeks.
 
 ```{r}
 #Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows the 24-hour activity time courses for each day and #use color to indicate day of the week. Describe in words any patterns or conclusions you can make based on this graph.
