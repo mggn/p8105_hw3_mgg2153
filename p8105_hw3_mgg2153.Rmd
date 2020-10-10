@@ -197,7 +197,6 @@ ny_weather_df %>%
   )+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1), legend.position = "none")
   
-  
 
 
 ```
@@ -205,12 +204,45 @@ ny_weather_df %>%
 
 ```{r}
 library(patchwork)
+library(ggridges)
 
 #Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
 #violin plot
 #box plots????
 
+tmax_v_tmin = 
 ny_weather_df %>%
+  select(tmax, tmin) %>%
+  drop_na(tmax, tmin) %>%
+  ggplot(aes(x = tmax, y = tmin))+
+  geom_hex()
+
+snow_dist_1 = 
+ny_weather_df %>%
+  filter(year %in% c(1981:1990)) %>%
+  drop_na(snow) %>%
+  group_by(id, year, month) %>%
+  ggplot(aes(x = year, y = snow))+
+  geom_boxplot()+
+  theme(axis.text.x = element_text(angle = 90))
+
+snow_dist_2 =
+ ny_weather_df %>%
+  filter(year %in% c(1991:2000)) %>%
+  drop_na(snow) %>%
+  group_by(id, year, month) %>%
+  ggplot(aes(x = year, y = snow))+
+  geom_boxplot()+
+  theme(axis.text.x = element_text(angle = 90)) 
+
+snow_dist_3 =
+  ny_weather_df %>%
+  filter(year %in% c(2001:2010)) %>%
+  drop_na(snow) %>%
+  group_by(id, year, month) %>%
+  ggplot(aes(x = year, y = snow))+
+  geom_boxplot()+
+  theme(axis.text.x = element_text(angle = 90))
   
 
 ```
