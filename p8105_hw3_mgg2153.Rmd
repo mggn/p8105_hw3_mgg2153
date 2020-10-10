@@ -274,13 +274,20 @@ ny_weather_df %>%
   drop_na(tmax, tmin) %>%
   ggplot(aes(x = tmax, y = tmin))+
   geom_hex()+
+  scale_x_continuous(breaks = c(-25, 0, 25, 50))+
+  labs(
+    x = "Minimum temperature in degrees Celsius",
+    y = "Maximum temperature in degrees Celsius",
+    title = "Maximum vs. minimum temperatures across New York"
+  )+
   theme(legend.position = "none")
 
 snow_dist_1 = 
 ny_weather_df %>%
   filter(year %in% c(1981:1990)) %>%
   drop_na(snow) %>%
-  filter(snow <= 100) %>%
+  filter(0 < snow) %>%
+  filter(snow < 100) %>%
   group_by(id, year, month) %>%
   ggplot(aes(x = year, y = snow, fill = year))+
   geom_violin()+
@@ -308,10 +315,5 @@ snow_dist_3 =
 
 
 tmax_v_tmin/ snow_dist_1 /snow_dist_2 / snow_dist_3
-
-ggsave(file = 'snow_dist_1.png')  
-ggsave(file = 'snow_dist_2.png')
-ggsave(file = 'snow_dist_3.png')
-ggsave(file = 'tmax_v_tmin.png')
 
 ```
