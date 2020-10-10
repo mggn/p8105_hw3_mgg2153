@@ -138,20 +138,23 @@ accel_df %>%
 From quickly glancing at the table, there do not appear to be any apparent trends, except that on Saturday for
 weeks 4 and 5, there seems to be significantly less activity than any of the other days on any of the other weeks.
 
+Next, we will actually make a plot!
+
 ```{r}
-#Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows the 24-hour activity time courses for each day and #use color to indicate day of the week. Describe in words any patterns or conclusions you can make based on this graph.
+#Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows 
+#the 24-hour activity time courses for each day and #use color to indicate day of the week. Describe in words any patterns 
+#or conclusions you can make based on this graph.
 
 accel_df %>%
-  filter(week == 1) %>%
   mutate(
     day = forcats::fct_relevel(day, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
     #lubridate::as.duration() lemme try to figure this one out
     ) %>%
   ggplot(aes(x = minute, y = acceleration_force, fill = day))+
   geom_point(aes(color = day))+
+  scale_x_discrete(breaks = c(240,480,720,960, 1200, 1440))+
   facet_grid(. ~ day)+
   theme(legend.position = "none")
-  
   
   
 ```
