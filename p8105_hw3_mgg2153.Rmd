@@ -160,7 +160,7 @@ accel_df %>%
     y = "Measured accelerometer activity",
     title = "Activity log over the course of 24-hours for a patient over 5 weeks"
   )+
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 1), plot.title = element_text(size = 11))
   
   
 ```
@@ -255,7 +255,7 @@ ny_weather_df %>%
   scale_x_discrete(
     breaks = c(1981, 1985, 1990, 1995, 2000, 2005, 2010 )
   )+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1), legend.position = "none")
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1), legend.position = "none", plot.title = element_text(size = 11))
   
 
 
@@ -319,7 +319,7 @@ snow_dist_2 =
     y = "snow (mm)",
     title = "Snowfall distribution 1996-2010"
   )+
-  theme(axis.text.x = element_text(angle = 90), legend.position = "none") 
+  theme(axis.text.x = element_text(angle = 90), legend.position = "none", plot.title = element_text(size = 12)) 
 ```
 
 ```{r graph_print, echo = FALSE}
