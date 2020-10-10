@@ -284,36 +284,38 @@ ny_weather_df %>%
 
 snow_dist_1 = 
 ny_weather_df %>%
-  filter(year %in% c(1981:1990)) %>%
+  filter(year %in% c(1981:1995)) %>%
   drop_na(snow) %>%
   filter(0 < snow) %>%
   filter(snow < 100) %>%
   group_by(id, year, month) %>%
   ggplot(aes(x = year, y = snow, fill = year))+
   geom_violin()+
+  labs(
+    y = "snow (mm)",
+    title = "Snowfall distribution 1981-95"
+  )+
   theme(axis.text.x = element_text(angle = 90), legend.position = "none")
 
 snow_dist_2 =
  ny_weather_df %>%
-  filter(year %in% c(1991:2000)) %>%
+  filter(year %in% c(1996:2010)) %>%
   drop_na(snow) %>%
-  filter(snow <= 100) %>%
+  filter(snow < 100) %>%
+  filter(snow > 0) %>%
   group_by(id, year, month) %>%
   ggplot(aes(x = year, y = snow, fill = year))+
   geom_violin()+
+  labs(
+    y = "snow (mm)",
+    title = "Snowfall distribution 1996-2010"
+  )+
   theme(axis.text.x = element_text(angle = 90), legend.position = "none") 
 
-snow_dist_3 =
-  ny_weather_df %>%
-  filter(year %in% c(2001:2010)) %>%
-  drop_na(snow) %>%
-  filter(snow <= 100) %>%
-  group_by(id, year, month) %>%
-  ggplot(aes(x = year, y = snow, fill = year))+
-  geom_violin()+
-  theme(axis.text.x = element_text(angle = 90), legend.position = "none")
+
+(tmax_v_tmin) 
+(snow_dist_1) + (snow_dist_2)
 
 
-tmax_v_tmin/ snow_dist_1 /snow_dist_2 / snow_dist_3
 
 ```
