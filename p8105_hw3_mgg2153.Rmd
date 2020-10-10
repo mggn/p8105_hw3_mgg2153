@@ -114,7 +114,7 @@ accel_df = read_csv("./data/accel_data.csv") %>%
   )
 ```
 The new, tidier dataset, accel_df has `r nrow(accel_df)`observations and `r ncol(accel_df)` variables. 
-Those variables are
+Those variables are `r names(accel_df)`
 
 
 
