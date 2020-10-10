@@ -260,6 +260,8 @@ ny_weather_df %>%
 
 
 ```
+
+  
 Looking at this plot, we can see that average maximum temperature in January is less than
 the average maximum temperature in July. This makes sense because... January is winter, and
 July is in the summer! Also, we can see a sort of zig-zag pattern for both months, showing the 
@@ -318,13 +320,14 @@ snow_dist_2 =
     title = "Snowfall distribution 1996-2010"
   )+
   theme(axis.text.x = element_text(angle = 90), legend.position = "none") 
+```
 
-
+```{r graph_print, echo = FALSE}
 (tmax_v_tmin) 
 (snow_dist_1) + (snow_dist_2)
 ```
 
-```{r save_plots include = FALSE}
+```{r save_plots, include = FALSE}
 ggsave(filename = "tmax_v_tmin.pdf", path = "./visuals")
 ggsave(filename = "snow_dist_1.pdf", path = "./visuals")
 ggsave(filename = "snow_dist_2.pdf", path = "./visuals")
