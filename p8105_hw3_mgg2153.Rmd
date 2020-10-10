@@ -113,6 +113,9 @@ accel_df = read_csv("./data/accel_data.csv") %>%
     acceleration_force = as.numeric(acceleration_force)
   )
 ```
+The new, tidier dataset, accel_df has `r nrow(accel_df)`observations and `r ncol(accel_df)` variables. 
+Those variables are
+
 
 
 ```{r two_parttwo}
@@ -132,7 +135,7 @@ accel_df %>%
   filter(week == 1) %>%
   mutate(
     day = forcats::fct_relevel(day, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
-    lubridate::as.duration()
+    #lubridate::as.duration() lemme try to figure this one out
     ) %>%
   ggplot(aes(x = minute, y = acceleration_force, fill = day))+
   geom_point(aes(color = day))+
